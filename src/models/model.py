@@ -21,7 +21,7 @@ torch.cuda.manual_seed_all(SEED)
 contriever = Contriever.from_pretrained("facebook/contriever")
 tokenizer = AutoTokenizer.from_pretrained("facebook/contriever")
 
-with open(Path(__file__).parent / "faq_dataset_sample.json", "r", encoding="utf-8") as file:
+with open(Path(__file__).parent / "dataset/faq_dataset_sample.json", "r", encoding="utf-8") as file:
     faq = json.load(file)
 
 
