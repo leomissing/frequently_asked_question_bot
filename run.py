@@ -6,7 +6,7 @@ from src.pipeline_services import pre_services
 
 
 def get_pipeline(use_cli_interface: bool = False) -> Pipeline:
-    telegram_token = # insert tg token
+    telegram_token =  # insert tg token
 
     if use_cli_interface:
         messenger_interface = None

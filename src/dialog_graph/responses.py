@@ -9,8 +9,9 @@ from dff.script import Context
 from dff.pipeline import Pipeline
 from dff.script.core.message import Button
 from dff.messengers.telegram import TelegramMessage, TelegramUI, ParseMode
-from src.models.model import faq
+from src.models.model import questions, get_answer
 
+# TelegramUI.row_width = 2
 
 def suggest_similar_questions(ctx: Context, _: Pipeline):
     """Suggest questions similar to user's query by showing buttons with those questions."""
@@ -28,7 +29,7 @@ def suggest_similar_questions(ctx: Context, _: Pipeline):
     if len(similar_questions) == 0:  # question is not similar to any questions
         return TelegramMessage(
             text="I don't have an answer to that question. Here's a list of questions I know an answer to:",
-            ui=TelegramUI(buttons=[Button(text=q, payload=q) for q in faq]),
+            ui=TelegramUI(buttons=[Button(text=q, payload=q) for q in questions[:3]]),
         )
     else:
         return TelegramMessage(
@@ -47,5 +48,5 @@ def answer_question(ctx: Context, _: Pipeline):
     last_request = cast(TelegramMessage, last_request)
     if last_request.callback_query is None:
         raise RuntimeError("No callback query")
-
-    return TelegramMessage(text=faq[last_request.callback_query], parse_mode=ParseMode.HTML)
+    answer, context = get_answer(last_request.callback_query)[0]
+    return TelegramMessage(text="Answer: "+answer+"\nContext: "+context, parse_mode=ParseMode.HTML)
