@@ -21,7 +21,7 @@ torch.cuda.manual_seed_all(SEED)
 contriever = Contriever.from_pretrained("facebook/contriever")
 tokenizer = AutoTokenizer.from_pretrained("facebook/contriever")
 
-with open(Path(__file__).parents[1] / "dataset\English_df.json", "r", encoding="utf-8") as file:
+with open(Path(__file__).parents[1] / "dataset\qa_df.json", "r", encoding="utf-8") as file:
     faq = json.load(file)
 
 questions = [item["question"] for item in faq]
