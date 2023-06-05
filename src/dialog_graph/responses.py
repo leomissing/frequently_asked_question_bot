@@ -11,7 +11,6 @@ from dff.script.core.message import Button
 from dff.messengers.telegram import TelegramMessage, TelegramUI, ParseMode
 from src.models.model import questions, get_answer
 
-# TelegramUI.row_width = 2
 
 def suggest_similar_questions(ctx: Context, _: Pipeline):
     """Suggest questions similar to user's query by showing buttons with those questions."""
@@ -29,7 +28,7 @@ def suggest_similar_questions(ctx: Context, _: Pipeline):
     if len(similar_questions) == 0:  # question is not similar to any questions
         return TelegramMessage(
             text="I don't have an answer to that question. Here's a list of questions I know an answer to:",
-            ui=TelegramUI(buttons=[Button(text=q, payload=q) for q in questions[:3]]),
+            ui=TelegramUI(buttons=[Button(text=q, payload=q) for q in questions[:3]], row_width=1),
         )
     else:
         return TelegramMessage(
